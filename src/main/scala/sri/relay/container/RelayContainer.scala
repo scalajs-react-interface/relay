@@ -46,9 +46,12 @@ trait AbstractRelayContainerSpec extends js.Object {
 }
 
 @ScalaJSDefined
-abstract class RelayContainerSpec extends AbstractRelayContainerSpec {
-  override val initialVariables: js.UndefOr[js.Object] = js.undefined
-  override val prepareVariables: js.UndefOr[js.Function] = js.undefined
+trait RelayContainerSpec extends js.Object {
+  val initialVariables: js.UndefOr[js.Object] = js.undefined
+  val prepareVariables: js.UndefOr[js.Function] = js.undefined
+  val shouldComponentUpdate: js.UndefOr[js.Function0[Boolean]] = js.undefined
+  val fragments: Fragments
+
 }
 
 /**
@@ -126,7 +129,6 @@ trait RelayContainer[C <: RelayClass] extends ComponentConstructor {
   def render(): ReactElement = js.native
 
   def getFragment(fragmentName: String,
-                  route: RelayQueryConfig = ???,
                   variables: Variables = ???): RelayQueryFragment = js.native
 
   def getFragmentNames(): js.Array[String] = js.native

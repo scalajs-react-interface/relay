@@ -16,7 +16,7 @@ import scala.scalajs.js.annotation.{JSImport, JSName, ScalaJSDefined}
   * RelayMutation is the base class for modeling mutations of data.
   */
 @js.native
-@JSImport("RelayMutation", JSImport.Default)
+@JSImport("react-relay", "Mutation")
 abstract class RelayMutationJS(var props: js.Dynamic) extends js.Object {
 
   val fragments: js.Any = js.native

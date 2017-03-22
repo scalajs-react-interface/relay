@@ -13,6 +13,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js.{undefined, UndefOr => U}
 
 object RelayRenderer {
+  @inline
   def apply[C <: RelayClass](
       key: U[String] = undefined,
       ref: U[RelayRendererM => _] = undefined,
@@ -25,10 +26,10 @@ object RelayRenderer {
         (RelayQuerySet, js.Function1[ReadyState, _]) => Abortable] = undefined,
       onReadyStateChange: U[ReadyState => _] = undefined,
       queryConfig: RelayQueryConfig,
-      render: U[RelayRenderArgs[C#PropsType] => ReactElement] = undefined)(
-      children: ReactNode*): ReactElement = {
+      render: U[RelayRenderArgs[C#PropsType] => ReactElement] = undefined)
+    : ReactElement = {
     val props = FunctionObjectMacro()
-    React.createElement(Relay.Renderer, props, children: _*)
+    React.createElement(Relay.Renderer, props)
   }
 
 }
