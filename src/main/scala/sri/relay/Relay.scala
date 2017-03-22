@@ -7,7 +7,7 @@ import sri.relay.route.RelayQueryConfig
 import sri.core._
 import sri.relay.store.RelayEnvironment
 import sri.relay.tools.RelayInternalTypes.RelayQuerySet
-import sri.relay.tools.RelayTaskScheduler.TaskExecutor
+import sri.relay.tools.RelayTaskScheduler.{TaskExecutor, TaskScheduler}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSImport, ScalaJSDefined}
@@ -42,7 +42,7 @@ object Relay extends js.Object {
 
   def injectNetworkLayer(layer: NetworkLayer): Unit = js.native
 
-  def injectTaskScheduler(scheduler: TaskExecutor): Unit = js.native
+  def injectTaskScheduler(scheduler: TaskScheduler): Unit = js.native
 
   def isContainer(component: js.Object): Boolean = js.native
 

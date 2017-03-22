@@ -6,8 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.Promise
 
 object RelayTaskScheduler {
-  type TaskCallback = () => Unit
-  type TaskExecutor = js.Function => Unit
+  type TaskCallback = js.Function0[Unit]
+  type TaskExecutor = js.Function0[Unit]
+  type TaskScheduler = TaskExecutor => Unit
 }
 
 /**
