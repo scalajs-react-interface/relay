@@ -1,49 +1,89 @@
 package sri.relay
 
-import sri.relay.container.{RelayContainer, RelayContainerSpec, RelayPropTypes}
-import sri.relay.mutation.RelayMutation
-import sri.relay.network.NetworkLayer
-import sri.relay.route.RelayQueryConfig
 import sri.core._
-import sri.relay.store.RelayEnvironment
-import sri.relay.tools.RelayInternalTypes.RelayQuerySet
-import sri.relay.tools.RelayTaskScheduler.{TaskExecutor, TaskScheduler}
+import sri.macros.{FunctionObjectMacro, OptDefault, OptionalParam}
+import sri.relay.runtime.{GraphQLTaggedNode, RecordSourceProxy}
+import sri.relay.runtime.store.RelayEnvironment
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSImport, ScalaJSDefined}
+import scala.scalajs.js.|
 
 @js.native
 @JSImport("react-relay", JSImport.Namespace)
 object Relay extends js.Object {
-  val RootContainer: ReactClass = js.native
-  val ReadyStateRenderer: ReactClass = js.native
-  val Renderer: ReactClass = js.native
 
-  /**
-    * Create a component given a specification. A component implements a render method which returns one single child.
-    * That child may have an arbitrarily deep child structure. One thing that makes components different than standard
-    * prototypal classes is that you don't need to call new on them. They are convenience wrappers that construct
-    * backing instances (via new) for you.
-    */
-  val Mutation: RelayMutation = js.native
-  val PropTypes: RelayPropTypes = js.native
-  val Route: RelayQueryConfig = js.native
-  val Store: RelayEnvironment = js.native
+  def createFragmentContainer[C <: RelayFragmentClass: js.ConstructorTag](
+      component: RelayFragmentComponentConstructor { type ComponentType = C },
+      fragmentSpec: GraphQLTaggedNode | js.Dictionary[GraphQLTaggedNode])
+    : RelayContainer[C] = js.native
 
-  val Environment: RelayEnvironment = js.native
+  def createRefetchContainer[C <: RelayRefetchClass: js.ConstructorTag](
+      component: RelayRefetchComponentConstructor { type ComponentType = C },
+      fragmentSpec: GraphQLTaggedNode | js.Dictionary[GraphQLTaggedNode],
+      taggedNode: GraphQLTaggedNode): RelayContainer[C] = js.native
 
-  def createContainer[C <: RelayClass: js.ConstructorTag](
-      component: RelayComponentConstructor { type ComponentType = C },
-      spec: RelayContainerSpec): RelayContainer[C] = js.native
+  def createPaginationContainer[C <: RelayPaginationClass: js.ConstructorTag](
+      component: RelayPaginationComponentConstructor { type ComponentType = C },
+      fragmentSpec: GraphQLTaggedNode | js.Dictionary[GraphQLTaggedNode],
+      connectionConfig: ConnectionConfig): RelayContainer[C] = js.native
 
-  def getQueries[C <: RelayClass](component: RelayContainer[C],
-                                  route: RelayQueryConfig): RelayQuerySet =
+  def commitLocalUpdate(environment: RelayEnvironment,
+                        updater: js.Function1[RecordSourceProxy, Unit]): Unit =
     js.native
 
-  def injectNetworkLayer(layer: NetworkLayer): Unit = js.native
+}
 
-  def injectTaskScheduler(scheduler: TaskScheduler): Unit = js.native
+@js.native
+trait RelayContainer[C <: RelayClass] extends ComponentConstructor {
+  override type ComponentType = C
+}
 
-  def isContainer(component: js.Object): Boolean = js.native
+@ScalaJSDefined
+trait ConnectionConfig extends js.Object
 
+object ConnectionConfig {
+
+  @inline
+  def apply(
+      query: GraphQLTaggedNode,
+      direction: OptionalParam[ConnectionDirection] = OptDefault,
+      getFragmentVariables: OptionalParam[(js.Object, Int) => js.Object] =
+        OptDefault,
+      getVariables: OptionalParam[
+        (js.Object, PaginationInfo, js.Object) => js.Object] = OptDefault,
+      getConnectionFromProps: OptionalParam[
+        js.Object => js.UndefOr[ConnectionData]]): ConnectionConfig = {
+    val config = FunctionObjectMacro()
+    config.asInstanceOf[ConnectionConfig]
+  }
+}
+
+@ScalaJSDefined
+trait PaginationInfo extends js.Object {
+  val count: Int
+  val cursor: js.UndefOr[String]
+}
+
+@js.native
+trait ConnectionData extends js.Object {}
+
+@js.native
+trait ConnectionDirection extends js.Object
+
+object ConnectionDirection {
+  @inline def BACKWARD = "backward".asInstanceOf[ConnectionDirection]
+  @inline def FORWARD = "forward".asInstanceOf[ConnectionDirection]
+}
+
+@ScalaJSDefined
+trait RefetchOptions extends js.Object
+
+object RefetchOptions {
+
+  @inline
+  def apply(force: OptionalParam[Boolean] = OptDefault): RefetchOptions = {
+    val options = FunctionObjectMacro()
+    options.asInstanceOf[RefetchOptions]
+  }
 }

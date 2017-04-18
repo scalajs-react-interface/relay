@@ -1,7 +1,6 @@
 package sri.relay
 
 import sri.core.CreateElementJS
-import sri.relay.container.RelayContainer
 
 object CreateRelayElement {
 

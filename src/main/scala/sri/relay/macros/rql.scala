@@ -19,7 +19,7 @@ object rql {
   private final val script =
     """
       // `babel-relay-plugin` returns a function for creating plugin instances
-      var getBabelRelayPlugin = require('babel-relay-plugin');
+      var getBabelRelayPlugin = require('babel-plugin-relay');
       var babel = require('babel-core')
 
       // load previously saved schema data (see "Schema JSON" below)
@@ -119,7 +119,7 @@ object rql {
         sys.process
           .Process(Seq("yarn",
                        "add",
-                       "babel-relay-plugin@0.10.0",
+                       "babel-plugin-relay@1.0.0-alpha.3",
                        "babel-core@6.9.0"),
                    tempDir)
           .!!
@@ -149,7 +149,7 @@ object rql {
       nodeModulesPath: String): Either[String, String] = {
     import scala.sys.process._
     val buildFile = getOrCreateScript(tempDirName)
-    val send = s"Relay.QL`$relayQuery`"
+    val send = s"graphql`$relayQuery`"
     var output = ""
     var error = Option.empty[String]
     val io = new ProcessIO(
