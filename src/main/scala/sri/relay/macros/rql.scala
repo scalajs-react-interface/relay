@@ -23,10 +23,10 @@ object rql {
       var babel = require('babel-core')
 
       // load previously saved schema data (see "Schema JSON" below)
-      var schemaData = require(process.argv[2]);
+//      var schemaData = require(process.argv[2]);
 
       // create a plugin instance
-      var plugin = getBabelRelayPlugin(schemaData.data, {enforceSchema: true});
+//      var plugin = getBabelRelayPlugin(schemaData.data);
 
       process.stdin.resume();
       process.stdin.setEncoding('utf8');
@@ -38,8 +38,7 @@ object rql {
 
       process.stdin.on('end', function() {
           var result = babel.transform(data, {
-            plugins: [plugin],
-            ast: false,
+            plugins: [getBabelRelayPlugin]
           });
           process.stdout.write(result.code);
       });
@@ -119,7 +118,7 @@ object rql {
         sys.process
           .Process(Seq("yarn",
                        "add",
-                       "babel-plugin-relay@1.0.0-alpha.3",
+                       "babel-plugin-relay@1.0.0-alpha.2",
                        "babel-core@6.9.0"),
                    tempDir)
           .!!
@@ -158,6 +157,7 @@ object rql {
         stdin.close()
       }, { stdout =>
         output = convertStreamToString(stdout)
+        println(s"output : $output")
         stdout.close()
       }, { stderr =>
         val err = convertStreamToString(stderr)
