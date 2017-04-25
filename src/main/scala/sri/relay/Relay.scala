@@ -2,7 +2,8 @@ package sri.relay
 
 import sri.core._
 import sri.macros.{FunctionObjectMacro, OptDefault, OptionalParam}
-import sri.relay.runtime.{GraphQLTaggedNode, RecordSourceProxy}
+import sri.relay.runtime.{RecordSourceProxy}
+import sri.relay.runtime.query.GraphQLTaggedNode
 import sri.relay.runtime.store.RelayEnvironment
 
 import scala.scalajs.js

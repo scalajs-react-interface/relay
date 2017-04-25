@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 @js.native
-@JSImport("relay-runtime", "NetWork")
+@JSImport("relay-runtime", "Network")
 object RelayNetwork extends js.Object {
 
   def create(fetch: FetchFunction,

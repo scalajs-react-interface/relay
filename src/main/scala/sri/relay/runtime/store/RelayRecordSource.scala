@@ -34,6 +34,6 @@ trait MutableRecordSource extends RecordSource {
 }
 
 @js.native
-@JSImport("relay-runtime", "Store")
+@JSImport("relay-runtime", "RecordSource")
 class RelayRecordSource(val records: js.Object = ???)
     extends MutableRecordSource {}

@@ -9,7 +9,8 @@ import sri.macros.{
   OptDefault => NoValue,
   OptionalParam => U
 }
-import sri.relay.runtime.{CacheConfig, GraphQLTaggedNode}
+import sri.relay.runtime.CacheConfig
+import sri.relay.runtime.query.GraphQLTaggedNode
 import sri.relay.runtime.store.RelayEnvironment
 
 @js.native
