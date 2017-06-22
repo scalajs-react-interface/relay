@@ -38,7 +38,15 @@ package object network {
 }
 
 @js.native
-trait ConcreteBatch extends js.Object
+trait ConcreteBatch extends js.Object {
+  val fragment: js.Object = js.native
+  val id: js.Object = js.native
+  val kind: js.Object = js.native
+  val metadata: js.Object = js.native
+  val name: js.Object = js.native
+  val query :js.Object = js.native
+  val text :js.Object = js.native
+}
 
 @js.native
 trait CacheConfig extends js.Object
