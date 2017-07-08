@@ -1,6 +1,5 @@
 package sri.relay
 
-import scala.scalajs.js.annotation.ScalaJSDefined
 import sri.core._
 import sri.relay.runtime.Disposable
 import sri.relay.runtime.store.RelayEnvironment
@@ -8,8 +7,10 @@ import sri.relay.runtime.store.RelayEnvironment
 import scala.scalajs.js
 import scala.scalajs.js.|
 
-@ScalaJSDefined
-abstract class RelayFragmentComponent[P <: js.Object, S <: AnyRef]
+abstract class RelayFragmentComponent[P >: Null <: js.Object,
+                                      S >: Null <: AnyRef](
+    implicit ev: =:!=[P, Null],
+    ev2: =:!=[S, Null])
     extends ComponentJS[P, S]
     with RelayFragmentClass {
   override type PropsType = P
@@ -22,8 +23,8 @@ abstract class RelayFragmentComponent[P <: js.Object, S <: AnyRef]
       .asInstanceOf[RelayEnvironment]
 }
 
-@ScalaJSDefined
-abstract class RelayFragmentComponentP[P <: js.Object]
+abstract class RelayFragmentComponentP[P >: Null <: js.Object](
+    implicit ev: =:!=[P, Null])
     extends ComponentJS[P, Null]
     with RelayFragmentClass {
   override type PropsType = P
@@ -36,8 +37,10 @@ abstract class RelayFragmentComponentP[P <: js.Object]
       .asInstanceOf[RelayEnvironment]
 }
 
-@ScalaJSDefined
-abstract class RelayRefetchComponent[P <: js.Object, S <: AnyRef]
+abstract class RelayRefetchComponent[P >: Null <: js.Object,
+                                     S >: Null <: AnyRef](
+    implicit ev: =:!=[P, Null],
+    ev2: =:!=[S, Null])
     extends ComponentJS[P, S]
     with RelayFragmentClass {
   override type PropsType = P
@@ -65,8 +68,8 @@ abstract class RelayRefetchComponent[P <: js.Object, S <: AnyRef]
       .asInstanceOf[Disposable]
 }
 
-@ScalaJSDefined
-abstract class RelayRefetchComponentP[P <: js.Object]
+abstract class RelayRefetchComponentP[P >: Null <: js.Object](
+    implicit ev: =:!=[P, Null])
     extends ComponentJS[P, Null]
     with RelayFragmentClass {
   override type PropsType = P
@@ -94,8 +97,10 @@ abstract class RelayRefetchComponentP[P <: js.Object]
       .asInstanceOf[Disposable]
 }
 
-@ScalaJSDefined
-abstract class RelayPaginationComponent[P <: js.Object, S <: AnyRef]
+abstract class RelayPaginationComponent[P >: Null <: js.Object,
+                                        S >: Null <: AnyRef](
+    implicit ev: =:!=[P, Null],
+    ev2: =:!=[S, Null])
     extends ComponentJS[P, S]
     with RelayPaginationClass {
   override type PropsType = P
@@ -107,11 +112,11 @@ abstract class RelayPaginationComponent[P <: js.Object, S <: AnyRef]
       .environment
       .asInstanceOf[RelayEnvironment]
 
-  @inline def hasMore: Boolean =
-    props.asInstanceOf[js.Dynamic].relay.hasMore.asInstanceOf[Boolean]
+  @inline def hasMore(): Boolean =
+    props.asInstanceOf[js.Dynamic].relay.hasMore().asInstanceOf[Boolean]
 
-  @inline def isLoading: Boolean =
-    props.asInstanceOf[js.Dynamic].relay.isLoading.asInstanceOf[Boolean]
+  @inline def isLoading(): Boolean =
+    props.asInstanceOf[js.Dynamic].relay.isLoading().asInstanceOf[Boolean]
 
   @inline
   def loadMore(pageSize: Int,
@@ -132,8 +137,8 @@ abstract class RelayPaginationComponent[P <: js.Object, S <: AnyRef]
       .asInstanceOf[Disposable]
 }
 
-@ScalaJSDefined
-abstract class RelayPaginationComponentP[P <: js.Object]
+abstract class RelayPaginationComponentP[P >: Null <: js.Object](
+    implicit ev: =:!=[P, Null])
     extends ComponentJS[P, Null]
     with RelayPaginationClass {
   override type PropsType = P
@@ -145,11 +150,11 @@ abstract class RelayPaginationComponentP[P <: js.Object]
       .environment
       .asInstanceOf[RelayEnvironment]
 
-  @inline def hasMore: Boolean =
-    props.asInstanceOf[js.Dynamic].relay.hasMore.asInstanceOf[Boolean]
+  @inline def hasMore(): Boolean =
+    props.asInstanceOf[js.Dynamic].relay.hasMore().asInstanceOf[Boolean]
 
-  @inline def isLoading: Boolean =
-    props.asInstanceOf[js.Dynamic].relay.isLoading.asInstanceOf[Boolean]
+  @inline def isLoading(): Boolean =
+    props.asInstanceOf[js.Dynamic].relay.isLoading().asInstanceOf[Boolean]
 
   @inline
   def loadMore(pageSize: Int,

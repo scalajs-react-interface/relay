@@ -2,7 +2,7 @@ package sri.relay.runtime.store
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
-import scalajs.js.{UndefOr => U, undefined}
+import scala.scalajs.js.{UndefOr => U}
 @js.native
 @JSImport("relay-runtime", "Store")
 class RelayStore(val source: MutableRecordSource) extends js.Object {}

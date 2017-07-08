@@ -3,40 +3,31 @@ package sri
 import sri.core.{ComponentConstructor, ReactScalaClassJS}
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.ScalaJSDefined
 
 package object relay {
 
   type DataID = String
 
-  @ScalaJSDefined
   trait RelayClass extends ReactScalaClassJS {}
 
-  @ScalaJSDefined
   trait RelayFragmentClass extends RelayClass
 
-  @ScalaJSDefined
   trait RelayPaginationClass extends RelayClass
 
-  @ScalaJSDefined
   trait RelayRefetchClass extends RelayClass
 
-  @ScalaJSDefined
   trait RelayComponentConstructor extends ComponentConstructor {
     override type ComponentType <: RelayClass
   }
 
-  @ScalaJSDefined
   trait RelayFragmentComponentConstructor extends ComponentConstructor {
     override type ComponentType <: RelayFragmentClass
   }
 
-  @ScalaJSDefined
   trait RelayRefetchComponentConstructor extends ComponentConstructor {
     override type ComponentType <: RelayFragmentClass
   }
 
-  @ScalaJSDefined
   trait RelayPaginationComponentConstructor extends ComponentConstructor {
     override type ComponentType <: RelayFragmentClass
   }

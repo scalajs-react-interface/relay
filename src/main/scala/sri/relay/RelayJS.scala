@@ -2,17 +2,16 @@ package sri.relay
 
 import sri.core._
 import sri.macros.{FunctionObjectMacro, OptDefault, OptionalParam}
-import sri.relay.runtime.{RecordSourceProxy}
 import sri.relay.runtime.query.GraphQLTaggedNode
-import sri.relay.runtime.store.RelayEnvironment
+import sri.relay.runtime.store.{RecordSourceProxy, RelayEnvironment}
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSImport, ScalaJSDefined}
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js.|
 
 @js.native
 @JSImport("react-relay", JSImport.Namespace)
-object Relay extends js.Object {
+object RelayJS extends js.Object {
 
   def createFragmentContainer[C <: RelayFragmentClass: js.ConstructorTag](
       component: RelayFragmentComponentConstructor { type ComponentType = C },
@@ -35,12 +34,37 @@ object Relay extends js.Object {
 
 }
 
+object Relay {
+
+  def createFragmentContainer[C <: RelayFragmentClass: js.ConstructorTag](
+      fragmentSpec: js.Dictionary[GraphQLTaggedNode]): RelayContainer[C] =
+    RelayJS.createFragmentContainer(relayFragmentComponentConstructor[C],
+                                    fragmentSpec)
+
+  def createRefetchContainer[C <: RelayRefetchClass: js.ConstructorTag](
+      fragmentSpec: GraphQLTaggedNode | js.Dictionary[GraphQLTaggedNode],
+      taggedNode: GraphQLTaggedNode): RelayContainer[C] =
+    RelayJS.createRefetchContainer(relayRefetchComponentConstructor[C],
+                                   fragmentSpec,
+                                   taggedNode)
+
+  def createPaginationContainer[C <: RelayPaginationClass: js.ConstructorTag](
+      fragmentSpec: GraphQLTaggedNode | js.Dictionary[GraphQLTaggedNode],
+      connectionConfig: ConnectionConfig): RelayContainer[C] =
+    RelayJS.createPaginationContainer(relayPaginationComponentConstructor[C],
+                                      fragmentSpec,
+                                      connectionConfig)
+
+  def commitLocalUpdate(environment: RelayEnvironment,
+                        updater: js.Function1[RecordSourceProxy, Unit]): Unit =
+    RelayJS.commitLocalUpdate(environment, updater)
+
+}
 @js.native
 trait RelayContainer[C <: RelayClass] extends ComponentConstructor {
   override type ComponentType = C
 }
 
-@ScalaJSDefined
 trait ConnectionConfig extends js.Object
 
 object ConnectionConfig {
@@ -51,16 +75,15 @@ object ConnectionConfig {
       direction: OptionalParam[ConnectionDirection] = OptDefault,
       getFragmentVariables: OptionalParam[(js.Object, Int) => js.Object] =
         OptDefault,
-      getVariables: OptionalParam[
-        (js.Object, PaginationInfo, js.Object) => js.Object] = OptDefault,
+      getVariables: (js.Object, PaginationInfo, js.Object) => js.Object,
       getConnectionFromProps: OptionalParam[
-        js.Object => js.UndefOr[ConnectionData]]): ConnectionConfig = {
+        js.Object => js.UndefOr[ConnectionData]] = OptDefault)
+    : ConnectionConfig = {
     val config = FunctionObjectMacro()
     config.asInstanceOf[ConnectionConfig]
   }
 }
 
-@ScalaJSDefined
 trait PaginationInfo extends js.Object {
   val count: Int
   val cursor: js.UndefOr[String]
@@ -77,7 +100,6 @@ object ConnectionDirection {
   @inline def FORWARD = "forward".asInstanceOf[ConnectionDirection]
 }
 
-@ScalaJSDefined
 trait RefetchOptions extends js.Object
 
 object RefetchOptions {
