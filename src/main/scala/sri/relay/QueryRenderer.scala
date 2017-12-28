@@ -1,11 +1,8 @@
 package sri.relay
 
 import sri.core.{CreateElementJSNoInline, JSComponent, ReactElement}
-import sri.macros.{
-  FunctionObjectMacro,
-  OptDefault => NoValue,
-  OptionalParam => U
-}
+import scalajsplus.macros.{FunctionObjectMacro}
+import scalajsplus.{OptDefault => NoValue, OptionalParam => U}
 import sri.relay.runtime.CacheConfig
 import sri.relay.runtime.query.GraphQLTaggedNode
 import sri.relay.runtime.store.RelayEnvironment

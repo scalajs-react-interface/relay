@@ -1,7 +1,8 @@
 package sri.relay
 
 import sri.core._
-import sri.macros.{FunctionObjectMacro, OptDefault, OptionalParam}
+import scalajsplus.macros.{FunctionObjectMacro}
+import scalajsplus.{OptDefault, OptionalParam}
 import sri.relay.runtime.query.GraphQLTaggedNode
 import sri.relay.runtime.store.{RecordSourceProxy, RelayEnvironment}
 

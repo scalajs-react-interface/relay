@@ -1,7 +1,8 @@
 package sri.relay.runtime.store
 
 import org.scalajs.dom.raw.{Blob, File}
-import sri.macros.{FunctionObjectMacro, OptDefault, OptionalParam}
+import scalajsplus.macros.{FunctionObjectMacro}
+import scalajsplus.{OptDefault, OptionalParam}
 import sri.relay.runtime.{
   CacheConfig,
   ConcreteBatch,

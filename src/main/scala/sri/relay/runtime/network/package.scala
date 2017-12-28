@@ -1,7 +1,8 @@
 package sri.relay.runtime
 
 import org.scalajs.dom.raw.{Blob, File}
-import sri.macros.{FunctionObjectMacro, OptDefault, OptionalParam}
+import scalajsplus.macros.{FunctionObjectMacro}
+import scalajsplus.{OptDefault, OptionalParam}
 import sri.relay.runtime.store.{MutableRecordSource, Observer}
 
 import scala.scalajs.js

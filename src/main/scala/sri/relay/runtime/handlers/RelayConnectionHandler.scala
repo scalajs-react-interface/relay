@@ -1,6 +1,6 @@
 package sri.relay.runtime.handlers
 
-import sri.macros.FunctionObjectMacro
+import scalajsplus.macros.FunctionObjectMacro
 import sri.relay.runtime.store.{RecordProxy, RecordSourceProxy}
 
 import scala.scalajs.js

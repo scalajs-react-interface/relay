@@ -1,7 +1,8 @@
 package sri.relay.runtime.mutation
 
 import org.scalajs.dom.raw.{Blob, File}
-import sri.macros.{FunctionObjectMacro, OptDefault, OptionalParam}
+import scalajsplus.macros.{FunctionObjectMacro}
+import scalajsplus.{OptDefault, OptionalParam}
 import sri.relay.runtime.{PayloadError, RangeBehaviors}
 import sri.relay.runtime.query.GraphQLTaggedNode
 import sri.relay.runtime.store.{RecordSourceSelectorProxy, RelayEnvironment}
@@ -112,7 +113,7 @@ object RangeAddConfig {
               OptDefault,
             rangeBehaviors: OptionalParam[RangeBehaviors] = OptDefault,
             edgeName: String): RangeAddConfig = {
-    import sri.universal.DangerousUnionToJSAnyImplicit._
+    import scalajsplus.DangerousUnionToJSAnyImplicit._
     val p = FunctionObjectMacro()
     p.asInstanceOf[js.Dynamic].updateDynamic("type")("RANGE_ADD")
     p.asInstanceOf[RangeAddConfig]
@@ -132,7 +133,7 @@ object RangeDeleteConfig {
       connectionKeys: OptionalParam[js.Array[ConnectionKey]] = OptDefault,
       deletedIDFieldName: OptionalParam[String | js.Array[String]] = OptDefault,
       pathToConnection: js.Array[String]): RangeDeleteConfig = {
-    import sri.universal.DangerousUnionToJSAnyImplicit._
+    import scalajsplus.DangerousUnionToJSAnyImplicit._
     val p = FunctionObjectMacro()
     p.asInstanceOf[js.Dynamic].updateDynamic("type")("RANGE_DELETE")
     p.asInstanceOf[RangeDeleteConfig]
