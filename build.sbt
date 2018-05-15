@@ -1,6 +1,6 @@
 name := "relay"
 
-//version := "2017.12.0-SNAPSHOT"
+//version := "2018.04.27-SNAPSHOT"
 
 enablePlugins(ScalaJSPlugin)
 

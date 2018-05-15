@@ -49,7 +49,7 @@ object graphql {
       writeToFile(sourceFilePath, content)
       val result = scala.util
         .Try(Process(
-          s"relay-compiler --src ./queries/ --schema ./data/schema.graphql").!!)
+          s"./node_modules/relay-compiler/bin/relay-compiler --src ./queries/ --schema ./data/schema.graphql").!!)
         .toOption
       if (result.isEmpty) {
         new File(sourceFilePath).delete()

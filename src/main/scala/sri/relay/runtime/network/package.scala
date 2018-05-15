@@ -1,7 +1,7 @@
 package sri.relay.runtime
 
 import org.scalajs.dom.raw.{Blob, File}
-import scalajsplus.macros.{FunctionObjectMacro}
+import scalajsplus.macros.FunctionObjectMacro
 import scalajsplus.{OptDefault, OptionalParam}
 import sri.relay.runtime.store.{MutableRecordSource, Observer}
 
@@ -35,7 +35,7 @@ package object network {
                  js.Object /*variables*/,
                  CacheConfig /*cacheConfig*/,
                  Observer[QueryPayload] /*observer*/,
-                 Disposable]
+                 Observable[QueryPayload]]
 }
 
 @js.native
@@ -94,3 +94,18 @@ trait HandleFieldPayload extends js.Object {
   val handleKey: String = js.native
 
 }
+
+@js.native
+trait Observable[T] extends js.Object {
+  def subscribe(observer: Observer[T]): Observable[T] = js.native
+}
+
+@js.native
+trait Subscription extends js.Object {
+
+  def unsubscribe(): Unit = js.native
+
+  def closed(): Boolean = js.native
+
+}
+
