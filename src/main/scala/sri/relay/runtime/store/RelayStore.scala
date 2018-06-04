@@ -11,5 +11,5 @@ class RelayStore(val source: MutableRecordSource) extends js.Object {}
 trait Observer[T] extends js.Object {
   def onCompleted: U[js.Function0[Unit]] = js.native
   def onError: U[js.Function1[js.Error, Unit]] = js.native
-  def onNext: U[T => Unit] = js.native
+  def onNext: U[js.Function1[T, Unit]] = js.native
 }
