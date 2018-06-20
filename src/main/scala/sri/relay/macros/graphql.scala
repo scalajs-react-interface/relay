@@ -3,16 +3,24 @@ package sri.relay.macros
 import java.io.{File, PrintWriter}
 import java.nio.file.{Files, Paths}
 
+import scala.annotation.StaticAnnotation
 import scala.io.Source
 import scala.reflect.macros.whitebox
 import scala.scalajs.js
 import scala.sys.process.Process
 
+class debug extends StaticAnnotation
+
 object graphql {
 
   def gqlMacroImpl(c: whitebox.Context)(
       args: c.Expr[js.Any]*): c.Expr[js.Function0[js.Any]] = {
+
     import c.universe._
+
+    val debug = c.macroApplication.symbol.annotations.filter(
+      _.tree.tpe <:< typeOf[debug]
+    ).headOption
 
     val constantParts = extractConstantPartsAndTreatEscapes(c)
 
@@ -52,7 +60,9 @@ object graphql {
           s"./node_modules/relay-compiler/bin/relay-compiler --src ./queries/ --schema ./data/schema.graphql").!!)
         .toOption
       if (result.isEmpty) {
-        new File(sourceFilePath).delete()
+        debug.getOrElse(
+          new File(sourceFilePath).delete()
+        )
         c.abort(c.enclosingPosition,
                 "Relay Compiler failed with Error check your graphql")
       }
@@ -131,5 +141,6 @@ object graphql {
 
   implicit class RsqlStringContext(val sc: StringContext) extends AnyVal {
     def graphql(args: js.Any*): js.Function0[js.Any] = macro gqlMacroImpl
+    @debug def graphqlDebug(args: js.Any*): js.Function0[js.Any] = macro gqlMacroImpl
   }
 }
