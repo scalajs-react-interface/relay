@@ -3,6 +3,7 @@ package sri.relay.runtime.subscription
 import org.scalajs.dom.raw.{Blob, File}
 import scalajsplus.macros.FunctionObjectMacro
 import scalajsplus.{OptDefault, OptionalParam}
+import sri.relay.external.SubscriptionClientConfig
 import sri.relay.runtime.mutation.MutationConfig
 import sri.relay.runtime.query.GraphQLTaggedNode
 import sri.relay.runtime.store.{RecordSourceSelectorProxy, RelayEnvironment}

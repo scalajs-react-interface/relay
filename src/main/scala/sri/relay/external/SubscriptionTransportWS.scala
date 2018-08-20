@@ -1,8 +1,7 @@
-package sri.relay.runtime.subscription
+package sri.relay.external
 
 import scalajsplus.macros.FunctionObjectMacro
-import scalajsplus.{OptDefault}
-import scalajsplus.{OptionalParam => OP}
+import scalajsplus.{OptDefault, OptionalParam => OP}
 import sri.relay.runtime.QueryPayload
 
 import scala.scalajs.js
