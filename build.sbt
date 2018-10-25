@@ -1,11 +1,11 @@
 name := "relay"
 
-//version := "2018.9.0-SNAPSHOT"
+//version := "2018.10.0-SNAPSHOT"
 
 enablePlugins(ScalaJSPlugin)
 
 
-val scala212 = "2.12.4"
+val scala212 = "2.12.7"
 
 scalaVersion := scala212
 
@@ -20,8 +20,8 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "scalajs-react-interface" %%% "universal" % "2018.9.22-RC" % Provided,
-  "scalajs-react-interface" %%% "core" % "2018.9.22-RC" % Provided,
+  "scalajs-react-interface" %%% "universal" % "2018.10.25-RC" % Provided,
+  "scalajs-react-interface" %%% "core" % "2018.10.25-RC" % Provided,
   "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided
 )
 
@@ -77,7 +77,7 @@ resolvers ++=Seq(Resolver.bintrayRepo("scalajs-react-interface", "maven"),
 
 libraryDependencies ++= Seq(
   "org.scala-js" %%% "scalajs-dom" % "0.9.6" % Test,
-  "scalajs-jest" %%% "core" % "2018.8.14-RC" % Test
+  "scalajs-jest" %%% "core" % "2018.10.25-RC" % Test
 )
 //scalaJSStage in Global := FastOptStage
 scalaJSStage in Global := FullOptStage
